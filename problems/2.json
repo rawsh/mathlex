@@ -1,0 +1,18 @@
+[
+	{
+		"problem": "How many ordered pairs $(x,y)$ of positive integers are there with $x,y < 1000$ and $11x - 17y = 1$?",
+		"answer": "58"
+	},
+	{
+		"problem": "A woman with a basket of eggs finds that if she removes either 2, 3, 4, 5, or 6 at a time from the basket, there is always one egg left over. If she removes 7 eggs at a time from the basket, there are no eggs left over. If the basket holds up to 500 eggs, how many eggs does she have?",
+		"answer": "301"
+	},
+	{
+		"problem": "Blues, Inc. sells jeans at the following prices: $15$ per pair if you buy $1-10$ pairs, $13$ per pair if you buy $11-40$ pairs, $10$ if you buy $41-70$ pairs, and $8$ per pair if you buy $71$ or more pairs.  For how many values of $n$ is it cheaper to buy a number of pairs greater than $n$ than it is to buy exactly $n$ pairs?",
+		"answer": "24"
+	},
+	{
+		"problem": "Blues, Inc. sells jeans at the following prices: $15$ per pair if you buy $1-10$ pairs, $13$ per pair if you buy $11-40$ pairs, $10$ if you buy $41-70$ pairs, and $8$ per pair if you buy $71$ or more pairs.  For how many values of $n$ is it cheaper to buy a number of pairs greater than $n$ than it is to buy exactly $n$ pairs?",
+		"answer": "24"
+	}
+]

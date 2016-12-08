@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title><%= title %></title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/problem.css">
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            tex2jax: {
+              inlineMath: [ ['$','$'] ],
+              processEscapes: true
+            }
+          });
+        </script>
+    </head>
+    <body>
+        <div class="problem">
+            <div class="heading">
+                <div class="title">Problem 1</div>
+                <a class="discussion" href="#">Problem Discussion</a>
+            </div>
+            <div class="text">
+                <div class="main">
+                    <b>Problem:</b>
+                    <a class="errors" href="#">Report an error</a>
+                    <p><%= problem %></p>
+                </div>
+                
+                <div class="display" id="math-display">$ $</div>
+                <div class="input">
+                    <input type="text" class="math" id="math-input" placeholder="Type math here">
+                    <input type="button" class="submit" id="send-math" value="Submit">
+                </div>
+            </div>
+        </div>
+        
+        <script src="javascripts/mathlex.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script>
+            $(document).ready(function () {
+                // get MathJax output object
+                var mjDisplayBox;
+                MathJax.Hub.Queue(function () {
+                    mjDisplayBox = MathJax.Hub.getAllJax('math-display')[0];
+                });
+
+                // "live update" MathJax whenever a key is pressed
+                $('#math-input').on('keyup', function (evt) {
+                    var math = $(this).val();
+                    $(this).css('color', 'black');
+                    if (math.length > 0) {
+                        try {
+                            var tree = MathLex.parse(math),
+                                latex = MathLex.render(tree, 'latex');
+                            MathJax.Hub.Queue(['Text', mjDisplayBox, latex]);
+                        } catch (err) {
+                            $(this).css('color', 'red');
+                        }
+                    } else {
+                        // clear display and output boxes if input is empty
+                        MathJax.Hub.Queue(['Text', mjDisplayBox, '']);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

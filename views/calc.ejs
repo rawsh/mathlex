@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title><%= title %></title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+        <link rel="stylesheet" href="/stylesheets/remodal.css">
+        <link rel="stylesheet" href="/stylesheets/remodal-theme.css">
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            tex2jax: {
+              inlineMath: [ ['$','$'] ],
+              processEscapes: true
+            },
+            "HTML-CSS": { 
+                 linebreaks: { automatic: true }
+            },
+            SVG: { 
+                 linebreaks: { automatic: true } 
+            }
+          });
+        </script>
+    </head>
+    <body>
+        <a href="#modal">open calculator</a>
+        
+        <div class="remodal" data-remodal-id="modal">
+            <button data-remodal-action="close" class="remodal-close"></button>
+            <div class="container-input">
+                <input class="problem-input" type="text" id="math-input" placeholder="Type math here">
+                <input class="problem-input" type="button" id="send-math" value="Calculate">
+            </div>
+            <div class="problem-output" id="math-display">$\text{type math here}$</div><div class="problem-output">$=$</div><div class="problem-output" id="math-output">$ $</div>
+        </div>
+        
+        <script src="javascripts/mathlex.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="/javascripts/remodal.js"></script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script>
+            $(document).ready(function () {
+                // get MathJax output object
+                var mjDisplayBox, mjOutBox;
+                MathJax.Hub.Queue(function () {
+                    mjDisplayBox = MathJax.Hub.getAllJax('math-display')[0];
+                    mjOutBox = MathJax.Hub.getAllJax('math-output')[0];
+                });
+
+                // "live update" MathJax whenever a key is pressed
+                $('#math-input').keyup(function (evt) {
+                    var math = $(this).val();
+                    $(this).css('color', 'black');
+                    if (math.length > 0) {
+                        try {
+                            var tree = MathLex.parse(math),
+                                latex = MathLex.render(tree, 'latex');
+                            MathJax.Hub.Queue(['Text', mjDisplayBox, latex]);
+                            MathJax.Hub.Queue(['Text', mjOutBox, '']);
+                        } catch (err) {
+                            $(this).css('color', 'red');
+                        }
+                    } else {
+                        // clear display and output boxes if input is empty
+                        MathJax.Hub.Queue(['Text', mjDisplayBox, '']);
+                        MathJax.Hub.Queue(['Text', mjOutBox, '']);
+                    }
+                });
+                
+                $('#math-input').keypress(function (e) {
+                  if (e.which == 13) {
+                    $('#send-math').click();
+                  }
+                });
+
+                // send output to sage server
+                $('#send-math').on('click', function (evt) {
+                    var math = $('#math-input').val();
+                    if (math.length > 0) {
+                        try {
+                            var tree = MathLex.parse(math),
+                                sageCode = MathLex.render(tree, 'sage');
+                                console.log(sageCode);
+                            $.post('http://sagecell.sagemath.org/service?callback=?',
+                                    { code: 'print latex('+sageCode+')' }, function (data) {
+                                // HACK: Firefox does not convert data to JSON
+                                if (typeof(data) === 'string') { data = $.parseJSON(data); }
+                                // AJAX success callback
+                                if (data.success) {
+                                    MathJax.Hub.Queue(['Text', mjOutBox, data.stdout]);
+                                } else {
+                                    MathJax.Hub.Queue(['Text', mjOutBox, '\\text{Sage could not understand that input}']);
+                                }
+                            });
+                        } catch (err) {
+                            MathJax.Hub.Queue(['Text', mjOutBox, '\\text{Check your syntax and try again}']);
+                        }
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

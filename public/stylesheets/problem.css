@@ -1,0 +1,95 @@
+@import 'https://fonts.googleapis.com/css?family=Libre+Baskerville';
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    line-height: 24px;
+    background-color: #efefef;
+}
+.problem {
+    padding: 10px;
+    margin: auto;
+    max-width: 500px;
+}
+
+.problem > .text {
+    padding: 10px;
+    background-color: #e6e6e6;
+}
+
+.problem > .text > .display {
+    padding: 5px;
+    background-color: #dcdcdc;
+}
+
+.problem > .text > .input {
+    display: flex;
+}
+.problem > .text > .input > .math {
+    flex:1;
+    padding: 7px;
+    border: none;
+}
+.problem > .text > .input > .submit {
+    background-color: #ccc;
+    width: 65.5px;
+    border: none;
+    padding: 7px;
+}
+
+
+.problem > .text > .main {
+    padding: 10px;
+    background-color: #fff;
+}
+
+.problem > .text > .main > .errors {
+    float: right
+}
+
+.problem > .heading {
+    padding: 10px; 
+    background-color: #cccccc;
+}
+
+.problem > .heading > .title {
+    display: inline;
+}
+
+.problem > .heading > .discussion {
+    float: right
+}
+
+.problem > .text > .output {
+    padding: 5px;
+    background-color: #efefef;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.footer-attribution {
+    position: static;
+    text-align: center;
+    padding: 12px;
+}

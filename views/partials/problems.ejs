@@ -1,0 +1,26 @@
+<% for(var i=0; i<problems.length; i++) {%>
+	<div class="problem" id=<%= "problem"+i %>>
+        <div class="heading">
+            <div class="title">Problem <%= i+1 %></div>
+            <a class="discussion" href="#">Problem Discussion</a>
+        </div>
+        <div class="text">
+            <div class="main">
+                <b>Problem:</b>
+                <a class="errors" href="#">Report an error</a>
+                <p><%= problems[i].problem %></p>
+            </div>
+            
+            <div class="display" id=<%= "mathdisplay"+i %>>$ $</div>
+            <div class="input">
+                <input data-pn="<%= i %>" type="text" class="math" id=<%= "input"+i %> placeholder="Type math here">
+                <input data-pn="<%= i %>" type="button" class="submit" id=<%= "sendmath"+i %> value="Submit">
+            </div>
+            <div class="output" id=<%= "output"+i %>></div>
+        </div>
+    </div>
+<% } %>
+
+<div class="footer-attribution">
+    Programmed by Robert Washbourne
+</div>

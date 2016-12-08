@@ -1,0 +1,14 @@
+[
+	{
+		"problem": "Expand $(x+1)(x-1)$.",
+		"answer": "x^{2} - 1"
+	},
+	{
+		"problem": "Find $7*6$",
+		"answer": "42"
+	},
+	{
+		"problem": "Find the largest number under 100.",
+		"answer": "99"
+	}
+]
